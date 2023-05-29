@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Student Registration Form</title>
+</head>
+<body>
+	<h1>Student Registration Form</h1>
+	<form method="POST" action="submit.php">
+		<label for="full_name">Full Name:</label>
+		<input type="text" name="full_name" required><br><br>
+
+		<label for="email">Email Address:</label>
+		<input type="email" name="email" required><br><br>
+
+		<label for="gender">Gender:</label>
+		<input type="radio" name="gender" value="Male" required>Male
+		<input type="radio" name="gender" value="Female" required>Female<br><br>
+
+		<input type="submit" value="Submit">
+	</form>
+
+	<h2>Registered Students</h2>
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Gender</th>
+		</tr>
+		<?php
+		
+			$conn = mysqli_connect("localhost", "username", "password", "database_name");
+
+			
+			$result = mysqli_query($conn, "SELECT * FROM students");
+
+			while($row = mysqli_fetch_assoc($result)){
+				echo "<tr>";
+				echo "<td>".$row['id']."</td>";
+				echo "<td>".$row['full_name']."</td>";
+				echo "<td>".$row['email']."</td>";
+				echo "<td>".$row['gender']."</td>";
+				echo "</tr>";
+			}
+
+			mysqli_close($conn);
+		?>
+	</table>
+</body>
+</html>
